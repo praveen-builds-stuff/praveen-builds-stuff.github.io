@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Stages of ABM — Praveen Visal</title>
+<style>
+  :root {
+    --bg: #000000;
+    --surface: #0d0d10;
+    --border: #2a2a2e;
+    --text: #f2f2f0;
+    --text-secondary: #b0b0b5;
+    --text-muted: #7a7a80;
+    --teal: #8FE3C0;
+    --pink: #E88BB0;
+    --coral: #E06B7A;
+    --blue: #5B7FE8;
+    --purple: #C77DD1;
+    --orange: #F2934A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  header.nav { padding: 28px 0; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); }
+  header.nav .wrap { display: flex; justify-content: space-between; align-items: center; }
+  header.nav a { color: var(--text); text-decoration: none; font-weight: 700; font-size: 15px; }
+  header.nav .back { color: var(--text-muted); font-weight: 400; font-size: 14px; }
+  header.nav .back:hover { color: var(--text-secondary); }
+  .hero { padding: 72px 0 40px; }
+  .eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: var(--teal); text-transform: uppercase; margin-bottom: 20px; }
+  h1 { font-size: 38px; font-weight: 700; font-style: italic; line-height: 1.18; margin-bottom: 24px; max-width: 640px; }
+  .stat-row { display: flex; align-items: baseline; gap: 20px; margin: 32px 0 8px; flex-wrap: wrap; }
+  .stat-number { font-size: 88px; font-weight: 800; background: linear-gradient(135deg, var(--teal), var(--pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+  .stat-label { font-size: 18px; color: var(--text-secondary); max-width: 300px; }
+
+  .arc-section { padding: 56px 0 16px; }
+  .arc-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; margin-bottom: 28px; }
+  .arc { display: flex; align-items: center; overflow-x: auto; padding-bottom: 8px; }
+  .arc-node { flex: 0 0 auto; width: 104px; height: 104px; border-radius: 50%; border: 2px solid var(--node-color); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; font-size: 12px; font-weight: 600; color: var(--node-color); padding: 8px; }
+  .arc-node .sub { font-size: 10px; font-weight: 500; opacity: 0.75; margin-top: 2px; }
+  .arc-node.final { border-width: 3px; }
+  .arc-arrow { flex: 0 0 auto; width: 30px; height: 2px; background: var(--border); position: relative; }
+  .arc-arrow::after { content: ""; position: absolute; right: -1px; top: -4px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--border); }
+
+  .screenshot-section { padding: 40px 0; }
+  .screenshot-frame { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  .screenshot-frame img { width: 100%; display: block; }
+  .caption { font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center; }
+  .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 600px) { .shot-grid { grid-template-columns: 1fr; } }
+
+  section.prose { padding: 24px 0; }
+  h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: var(--text); }
+  p { font-size: 17px; color: var(--text-secondary); margin-bottom: 16px; max-width: 660px; }
+  p strong { color: var(--text); font-weight: 600; }
+
+  .callout { background: var(--surface); border-left: 3px solid var(--teal); border-radius: 0 8px 8px 0; padding: 20px 24px; margin: 32px 0; font-size: 17px; color: var(--text); font-style: italic; }
+
+  .testimonial { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px 28px; margin: 32px 0; }
+  .testimonial p.quote { font-size: 17px; color: var(--text); font-style: italic; margin-bottom: 16px; }
+  .testimonial .attribution { display: flex; flex-direction: column; font-size: 14px; }
+  .testimonial .name { color: var(--teal); font-weight: 700; }
+  .testimonial .role { color: var(--text-muted); }
+
+  .more-section { padding: 40px 0 80px; }
+  .more-list { list-style: none; margin-top: 20px; }
+  .more-list li { padding: 18px 0; border-top: 1px solid var(--border); font-size: 16px; color: var(--text-secondary); }
+  .more-list li:last-child { border-bottom: 1px solid var(--border); }
+  .more-list .num { display: inline-block; font-weight: 700; color: var(--orange); margin-right: 8px; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--border); }
+  footer .links { display: flex; gap: 24px; flex-wrap: wrap; }
+  footer a { color: var(--teal); text-decoration: none; font-size: 15px; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+  footer p { color: var(--text-muted); font-size: 14px; margin-top: 20px; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .stat-number { font-size: 56px; }
+    .arc-node { width: 84px; height: 84px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html">Praveen Visal</a>
+    <a href="index.html" class="back">&larr; All case studies</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Case study 02 — Account-based marketing</span>
+    <h1>Two stages of ABM: proving the model, then scaling it.</h1>
+    <div class="stat-row">
+      <span class="stat-number">$1.18M</span>
+      <span class="stat-label">in pipeline from a 7-week ABM campaign on ~$27K spend — built on top of a pilot that first proved the model.</span>
+    </div>
+  </section>
+
+  <section class="arc-section">
+    <div class="arc-label">The arc</div>
+    <div class="arc">
+      <div class="arc-node" style="--node-color: var(--coral)">No outbound<span class="sub">motion yet</span></div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--blue)">Factors pilot<span class="sub">Jul 2024 — $1M</span></div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--purple)">Scaled team<span class="sub">1 to full BDR/LDR</span></div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--orange)">ABM ads<span class="sub">+ TAM list</span></div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node final" style="--node-color: var(--teal)">$1.18M<span class="sub">3 closed-won</span></div>
+    </div>
+  </section>
+
+  <section class="prose">
+    <h2>Before: no outbound motion at all</h2>
+    <p>Testsigma had no systematic way of knowing which companies were browsing the site with real buying intent. Inbound was the only motion. Outbound existed on paper, but without a way to prioritize who to actually call, it rarely started.</p>
+
+    <h2>The pilot</h2>
+    <p>In July 2024, I brought in <strong>Factors</strong> to de-anonymize website traffic — turning anonymous visitors into identifiable companies, then routing high-intent accounts to the right rep automatically. This wasn't a mature ABM program yet. It was a pilot, run to answer one question: is there real pipeline sitting in our anonymous traffic that we're simply not seeing?</p>
+    <p>The answer was yes. The pilot alone generated <strong>$1M in pipeline</strong> — and just as importantly, it gave Testsigma's outbound motion something it never had: a working, prioritized list of accounts actually worth calling.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img src="assets/factors-vignesh-redacted.png" alt="Factors.ai Slack notification showing high-intent account activity routed to a BDR">
+    </div>
+    <p class="caption">A live Factors alert routing a high-intent account straight to the owning BDR — this is the tooling behind the pilot, still running today. (Company details blurred.)</p>
+  </section>
+
+  <section class="prose">
+    <h2>Scaling it</h2>
+    <p>Once the pilot proved the model, the motion scaled from a single BDR and LDR to the full team. De-anonymization stopped being an experiment and became a standing part of how Testsigma's outbound org operates — a reliable, quarter-over-quarter source of sales-accepted opportunities.</p>
+
+    <h2>The mature version: pure ABM</h2>
+    <p>With the foundation in place, I co-drove a dedicated ABM motion — a different level of sophistication from the original pilot. This time: LinkedIn ads served directly to a defined target-account list (TAM), coordinated with the BDR-owned account list so that by the time a rep reached out, the account had already heard of Testsigma.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img src="assets/abm-apac-ad.png" alt="LinkedIn ABM ad served to APAC target accounts">
+    </div>
+    <p class="caption">One of the LinkedIn ABM ads served to the APAC target-account list.</p>
+  </section>
+
+  <section class="prose">
+    <p>In its first 7 weeks, this campaign generated <strong>$1.18M in pipeline</strong> — $748K of it directly ABM-influenced — on roughly $27K in spend. Three deals closed won in that window, and every one of them was 80%+ ABM-influenced before close.</p>
+
+    <div class="callout">
+      Two numbers, two different maturity levels. The pilot proved the model existed and gave the org its first outbound motion. The ABM campaign is what that model looks like once it's deliberately built out. Neither one is the whole story without the other.
+    </div>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img src="assets/abm-yashaswini-post.png" alt="Internal Slack post reporting the ABM campaign's pipeline and closed-won results">
+    </div>
+    <p class="caption">The internal results readout on the ABM campaign — the source of the $1.18M / $748K figures above.</p>
+  </section>
+
+  <section class="testimonial">
+    <p class="quote">"With Testsigma, he implemented and drove the adoption of Factors (ABM platform) which kickstarted the outbound motion and enabled to increase outbound pipeline and add 1 Million in Pipeline. Along with this, I have seen Praveen launch our GTM products — Atto and Arcus — live. Praveen has always been warm, easy to collaborate with and bridges the gap together. 10/10 — recommended."</p>
+    <div class="attribution">
+      <span class="name">Shreyas Sachidananda</span>
+      <span class="role">SMB and Commercial AE at Testsigma — worked with Praveen on different teams</span>
+    </div>
+  </section>
+
+  <section class="more-section">
+    <h2>Why this matters beyond the numbers</h2>
+    <p>ABM only works if sales and marketing are actually reading the same signal. The recommendation above is from an AE, not a peer marketer — evidence that this wasn't a campaign run in isolation, but a motion built with the sales team, for the sales team.</p>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="index.html">Back to case studies</a>
+    </div>
+    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+  </footer>
+
+</div>
+</body>
+</html>

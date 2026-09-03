@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Growth Experimentation Engine — Praveen Visal</title>
+<style>
+  :root {
+    --bg: #000000;
+    --surface: #0d0d10;
+    --surface-2: #16161a;
+    --border: #2a2a2e;
+    --text: #f2f2f0;
+    --text-secondary: #b0b0b5;
+    --text-muted: #7a7a80;
+    --teal: #8FE3C0;
+    --pink: #E88BB0;
+    --coral: #E06B7A;
+    --blue: #5B7FE8;
+    --purple: #C77DD1;
+    --orange: #F2934A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    line-height: 1.6;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  header.nav {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+  }
+  header.nav .wrap { display: flex; justify-content: space-between; align-items: center; }
+  header.nav a { color: var(--text); text-decoration: none; font-weight: 700; font-size: 15px; }
+  header.nav .back { color: var(--text-muted); font-weight: 400; font-size: 14px; }
+  header.nav .back:hover { color: var(--text-secondary); }
+
+  .hero { padding: 72px 0 40px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    font-style: italic;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    max-width: 620px;
+  }
+  .stat-row { display: flex; align-items: baseline; gap: 20px; margin: 32px 0 8px; flex-wrap: wrap; }
+  .stat-number {
+    font-size: 96px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--teal), var(--pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .stat-label { font-size: 18px; color: var(--text-secondary); max-width: 280px; }
+
+  /* Arc diagram */
+  .arc-section { padding: 56px 0 16px; }
+  .arc-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; margin-bottom: 28px; }
+  .arc {
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    gap: 0;
+  }
+  .arc-node {
+    flex: 0 0 auto;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 2px solid var(--node-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--node-color);
+    padding: 8px;
+  }
+  .arc-node.final { border-width: 3px; }
+  .arc-arrow { flex: 0 0 auto; width: 36px; height: 2px; background: var(--border); position: relative; }
+  .arc-arrow::after {
+    content: "";
+    position: absolute; right: -1px; top: -4px;
+    border-top: 5px solid transparent; border-bottom: 5px solid transparent;
+    border-left: 7px solid var(--border);
+  }
+
+  .screenshot-section { padding: 56px 0; }
+  .screenshot-frame {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .screenshot-frame img { width: 100%; display: block; }
+  .caption { font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center; }
+
+  section.prose { padding: 24px 0; }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 40px 0 16px;
+    color: var(--text);
+  }
+  p { font-size: 17px; color: var(--text-secondary); margin-bottom: 16px; max-width: 660px; }
+  p strong { color: var(--text); font-weight: 600; }
+
+  .callout {
+    background: var(--surface);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin: 32px 0;
+    font-size: 17px;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  .more-section { padding: 40px 0 80px; }
+  .more-list { list-style: none; margin-top: 20px; }
+  .more-list li {
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+  .more-list li:last-child { border-bottom: 1px solid var(--border); }
+  .more-list .num {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--orange);
+    margin-right: 8px;
+  }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--border); }
+  footer .links { display: flex; gap: 24px; flex-wrap: wrap; }
+  footer a { color: var(--teal); text-decoration: none; font-size: 15px; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+  footer p { color: var(--text-muted); font-size: 14px; margin-top: 20px; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 30px; }
+    .stat-number { font-size: 64px; }
+    .arc-node { width: 76px; height: 76px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="index.html">Praveen Visal</a>
+    <a href="index.html" class="back">&larr; All case studies</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Case study 01 — Growth experimentation</span>
+    <h1>When an AI-led redesign backfired — and AI fixed it.</h1>
+    <div class="stat-row">
+      <span class="stat-number">2x+</span>
+      <span class="stat-label">MQL conversion lift from one AI-diagnosed fix — landing above where the page started before anything went wrong.</span>
+    </div>
+  </section>
+
+  <section class="arc-section">
+    <div class="arc-label">The arc</div>
+    <div class="arc">
+      <div class="arc-node" style="--node-color: var(--coral)">Redesign</div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--orange)">CVR dip</div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--blue)">Attive diagnosis</div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node" style="--node-color: var(--purple)">Rewrite</div>
+      <div class="arc-arrow"></div>
+      <div class="arc-node final" style="--node-color: var(--teal)">2x+ recovery</div>
+    </div>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img src="assets/tms-lp-after.png" alt="Testsigma mobile app testing landing page, current version">
+    </div>
+    <p class="caption">The page today — the hero section that came out of this fix.</p>
+  </section>
+
+  <section class="prose">
+    <h2>The setup</h2>
+    <p>Early in an experimentation cycle, we rolled out an AI-assisted redesign of the hero section on our core product testing pages — new copy, new layout, generated and refined quickly using AI tooling. It felt like a clear improvement on paper.</p>
+
+    <h2>The problem</h2>
+    <p>It wasn't. Conversion rate dropped after the change went live. Not a rounding error — a real, visible dip on pages that mattered.</p>
+    <p>The easy response would have been to guess at a second redesign, or just revert and call it a wash. Neither felt right. A worse hero section usually means a <strong>specific</strong> mismatch between what the page says and what the visitor actually needs to hear — not a generically "bad" page.</p>
+
+    <h2>The diagnosis</h2>
+    <p>Instead of guessing, I used <strong>Attive</strong> to analyze call recordings from customers who'd actually closed — mining the transcripts for the recurring, product-specific pain points they described in their own words before they bought. That's a different exercise than asking "what do we think matters to buyers" — it's asking "what did buyers who actually converted say mattered to <strong>them</strong>."</p>
+    <p>Doing this manually — listening back through a month of closed-won calls, tagging themes, finding the patterns — would have taken hours. The AI-assisted pass took minutes, which meant the fix shipped fast enough to matter.</p>
+
+    <h2>The fix</h2>
+    <p>I rewrote the hero copy to speak directly to the pain points the call data surfaced — replacing generic value language with the actual words and priorities real buyers had used when explaining why they bought.</p>
+
+    <h2>The result</h2>
+    <p>Conversion didn't just recover. It landed meaningfully above where it had been <strong>before</strong> the AI redesign that caused the dip in the first place — more than a <strong>2x lift</strong> in MQL conversion on the pages involved.</p>
+
+    <div class="callout">
+      AI is excellent at compressing the time to insight. It's not a substitute for the insight-gathering step itself. The redesign that failed skipped straight to generation. The fix that worked used AI to listen first.
+    </div>
+  </section>
+
+  <section class="more-section">
+    <h2>More from the same program</h2>
+    <p>This wasn't a one-off — it's representative of how I run growth work generally: treat every result as a hypothesis to test, not a decision to defend.</p>
+    <ul class="more-list">
+      <li><span class="num">3x</span>Grew overall website conversion 3x and MQL conversion nearly 4x over the year through a continuous A/B testing program across the funnel.</li>
+      <li><span class="num">$1M+</span>Replaced a paid exit-intent tool with a self-built version — cut real subscription cost and turned an otherwise-lost segment of visitors into $1M+ in qualified pipeline.</li>
+      <li><span class="num">$170K</span>Launched a BDR-staffed live chat experiment on bottom-of-funnel pages that generated $170K in pipeline on its own.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <div class="links">
+      <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="index.html">Back to case studies</a>
+    </div>
+    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+  </footer>
+
+</div>
+</body>
+</html>
