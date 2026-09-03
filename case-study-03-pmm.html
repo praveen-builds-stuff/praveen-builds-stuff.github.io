@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Building PMM From Scratch — Praveen Visal</title>
+<title>Building PMM From Scratch | Praveen Visal</title>
 <style>
   :root {
     --bg: #000000; --surface: #0d0d10; --border: #2a2a2e;
@@ -59,6 +59,41 @@
   footer a:hover { text-decoration: underline; }
   footer p { color: var(--text-muted); font-size: 14px; margin-top: 20px; }
   @media (max-width: 600px) { h1 { font-size: 28px; } .stat-number { font-size: 64px; } .arc-node { width: 84px; height: 84px; font-size: 10px; } }
+
+  /* Lightbox */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 48px 24px; cursor: zoom-out; }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); cursor: default; }
+  .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1; padding: 8px; }
+
+
+  /* Body of Work: deep-dive tiles and content modal */
+  .bow-section { padding: 48px 0; border-top: 1px solid var(--border); }
+  .bow-tile { display: flex; align-items: center; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; cursor: pointer; transition: border-color 0.15s; }
+  .bow-tile:hover { border-color: var(--teal); }
+  .bow-tile:hover .bow-arrow { transform: translateX(4px); }
+  .bow-tile-icon { flex: 0 0 auto; width: 72px; height: 72px; }
+  .bow-tile-body { flex: 1; }
+  .bow-tile-title { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .bow-tile-teaser { font-size: 15px; color: var(--text-secondary); }
+  .bow-arrow { flex: 0 0 auto; color: var(--teal); font-size: 22px; transition: transform 0.15s; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: #0a0a0d; border: 1px solid var(--border); border-radius: 16px; max-width: 700px; width: 100%; padding: 40px 40px 48px; position: relative; margin-bottom: 40px; }
+  .modal-close { position: absolute; top: 20px; right: 24px; color: var(--text-muted); font-size: 30px; cursor: pointer; background: none; border: none; line-height: 1; }
+  .modal-close:hover { color: var(--text); }
+  .modal-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; margin-bottom: 12px; }
+  .modal-title { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3; }
+  .modal-block { margin-bottom: 26px; padding-left: 18px; border-left: 3px solid var(--modal-color, var(--teal)); }
+  .modal-block h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .modal-block p { font-size: 15px; color: var(--text-secondary); margin-bottom: 0; max-width: none; }
+  .modal-block ul { margin: 0; padding-left: 18px; }
+  .modal-block li { font-size: 15px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5; }
+  .modal-block li:last-child { margin-bottom: 0; }
+  .modal-block .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--modal-color, var(--teal)); margin-bottom: 6px; }
+
 </style>
 </head>
 <body>
@@ -73,46 +108,122 @@
 <div class="wrap">
 
   <section class="hero">
-    <span class="eyebrow">Case study 03 — Product marketing &amp; GTM</span>
+    <span class="eyebrow">Case study 03: Product marketing &amp; GTM</span>
     <h1>Sole PMM for a new product, from launch to its first enterprise deal.</h1>
     <div class="stat-row">
       <span class="stat-number">#1</span>
-      <span class="stat-label">ranking in India for "test management software" — traced directly to that first enterprise deal.</span>
+      <span class="stat-label">ranking in India for "test management software," traced directly to that first enterprise deal.</span>
     </div>
   </section>
 
   <section class="arc-section">
-    <div class="arc-label">The arc</div>
-    <div class="arc">
-      <div class="arc-node" style="--node-color: var(--coral)">No PMM<span class="sub">for this product</span></div>
-      <div class="arc-arrow"></div>
-      <div class="arc-node" style="--node-color: var(--blue)">Solo PMM<span class="sub">messaging, ads, events</span></div>
-      <div class="arc-arrow"></div>
-      <div class="arc-node" style="--node-color: var(--purple)">SEO play<span class="sub">#1 in India</span></div>
-      <div class="arc-arrow"></div>
-      <div class="arc-node" style="--node-color: var(--orange)">1st enterprise<span class="sub">deal closed</span></div>
-      <div class="arc-arrow"></div>
-      <div class="arc-node final" style="--node-color: var(--teal)">Linear<span class="sub">partnership</span></div>
+    <div class="arc-label">The full scope of the role</div>
+    <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 20px;">Everything below happened, not just the highlights in this case study. Click to see it full size.</p>
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-pmm-mindmap.png')" src="assets/cs3-pmm-mindmap.png" alt="Mindmap of all product marketing activities for Test Management (TMS), including launch, messaging, pricing, SEO, PLG experiments, webinars, sales enablement, partner marketing, and content">
     </div>
   </section>
 
   <section class="prose">
     <h2>Thrown in solo</h2>
-    <p>When Testsigma launched Test Management (TMS), there was no dedicated product marketer for it — I took on the function alone, on top of my existing growth remit. Messaging, positioning, paid ads, sales enablement, guerrilla event marketing: all of it, from scratch, with no playbook to inherit.</p>
+    <p>When Testsigma launched Test Management (TMS), there was no dedicated product marketer for it. I took on the function alone, on top of my existing growth remit. Messaging, positioning, paid ads, sales enablement, guerrilla event marketing: all of it, from scratch, with no playbook to inherit.</p>
+
+    <div class="bow-tile" onclick="openModal('modal-jtbd')" style="margin: 28px 0;">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <line x1="36" y1="36" x2="14" y2="14" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="58" y2="14" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="14" y2="58" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="58" y2="58" stroke="#2a2a2e" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="8" fill="#8FE3C0"/>
+        <circle cx="14" cy="14" r="4" fill="#E88BB0"/>
+        <circle cx="58" cy="14" r="4" fill="#5B7FE8"/>
+        <circle cx="14" cy="58" r="4" fill="#C77DD1"/>
+        <circle cx="58" cy="58" r="4" fill="#F2934A"/>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">The JTBD Framework Behind TMS Messaging</div>
+        <div class="bow-tile-teaser">Before writing a word of hero copy, I mapped the actual jobs buyers were hiring TMS to do.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
 
     <h2>The SEO play</h2>
-    <p>One of the first priorities was visibility. I ran an SEO and content play on the TMS product page targeting "test management software" — a competitive, high-intent keyword with established players already ranking. The page reached <strong>#1 in India and #4 in the US</strong>, and has held top-3 a year later.</p>
+    <p>One of the first priorities was visibility. I ran an SEO and content play on the TMS product page targeting "test management software," a competitive, high-intent keyword with established players already ranking. The page reached <strong>#1 in India and #4 in the US</strong>, and has held top-3 a year later.</p>
+
+    <p>Two more wins came out of the same stretch. I ran a 7-day trial experiment, down from the previous 21 days, on the theory that a longer trial doesn't convert better, it just gives people more runway to put off deciding. Cutting it created real urgency: <strong>new paying customers tripled</strong>. And I planned and ran Testsigma's <strong>highest-registered webinar to date (700+ registrations)</strong>, built entirely from scratch with no existing webinar program to lean on.</p>
   </section>
+
+  <div class="modal-overlay" id="modal-jtbd" onclick="if(event.target===this)closeModal('modal-jtbd')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-jtbd')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">The JTBD Framework Behind TMS Messaging</div>
+      <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 26px;">Before writing a word of hero copy, I ran a Jobs-to-be-Done process to find out what buyers were actually hiring a test management tool to do. Here's the process, not just the output.</p>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">Step 1</span>
+        <h4>Gather raw signal from two different sources</h4>
+        <ul>
+          <li>Discovery-call transcripts from the sales team</li>
+          <li>Public forum threads (Reddit, review sites) where people described frustrations unprompted</li>
+          <li>Two sources matter: a customer talking to sales and a stranger venting online have different incentives to shade the truth</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E88BB0;">
+        <span class="tag">Step 2</span>
+        <h4>Find the pattern, not the anecdote</h4>
+        <ul>
+          <li>One complaint isn't a job, it's one data point</li>
+          <li>Read across dozens of conversations for the same underlying need showing up in different words</li>
+          <li>"Scattered tools" and "too many places to look" get grouped as one job, not counted as two</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #5B7FE8;">
+        <span class="tag">Step 3</span>
+        <h4>Write it as a job, not a feature request</h4>
+        <ul>
+          <li>Each pattern rewritten as: the job, the pain stopping it, the outcome that counts as success</li>
+          <li>Example: the job wasn't "give me a test tool," it was "give me one place, and let me bring what I already have without losing it"</li>
+          <li>That distinction, job versus feature, is the whole point of the format</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #C77DD1;">
+        <span class="tag">Step 4</span>
+        <h4>Prioritize by repetition, not by what sounds compelling</h4>
+        <ul>
+          <li>Ranked jobs by how often they actually showed up, not by which felt most interesting to write about</li>
+          <li>Resisted leading with the cleverest insight instead of the most common one</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E06B7A;">
+        <span class="tag">What shipped</span>
+        <h4>Where this actually landed</h4>
+        <ul>
+          <li>The two most repeated jobs: wanting one place instead of scattered tools, and wanting AI to absorb the busywork of writing and running tests</li>
+          <li>Became "one place" and "AI Agents," the two ideas doing the most work in the final hero copy</li>
+        </ul>
+      </div>
+
+      <div class="screenshot-frame" style="margin-top: 8px;">
+        <img class="lightbox-trigger" onclick="openLightbox('assets/tms-hero-shipped.png')" src="assets/tms-hero-shipped.png" alt="Testsigma homepage hero reading AI Agents to Plan, Create, Run and Manage Tests in One Place">
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px; text-align: center;">Where the process actually landed: "AI Agents" and "in One Place," live on the page today.</p>
+    </div>
+  </div>
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/cs3-seo-ranking.png" alt="Google search results showing Testsigma ranking #1 for test management software">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-seo-ranking.png')" src="assets/cs3-seo-ranking.png" alt="Google search results showing Testsigma ranking #1 for test management software">
     </div>
-    <p class="caption">Testsigma's TMS page ranking #1 for "test management software" — the search that mattered most for this launch.</p>
+    <p class="caption">Testsigma's TMS page ranking #1 for "test management software": the search that mattered most for this launch.</p>
   </section>
 
   <section class="prose">
-    <p>That ranking wasn't just a vanity metric. It's traced directly to <strong>TMS's first enterprise deal</strong> — the first proof that this new product could win in the enterprise segment, not just SMB.</p>
+    <p>That ranking wasn't just a vanity metric. It's traced directly to <strong>TMS's first enterprise deal</strong>: the first proof that this new product could win in the enterprise segment, not just SMB.</p>
 
     <h2>Turning a review into a stage</h2>
     <p>I ran a G2 review campaign targeting our most active power users. One of those reviews came from a customer who liked the product enough to say yes to something bigger: becoming Testsigma's <strong>first-ever customer-as-speaker</strong> on a webinar. Getting a customer to describe your product in their own words, live, to a room of prospects, is worth more than anything I could write for them.</p>
@@ -121,24 +232,25 @@
   <section class="screenshot-section">
     <div class="shot-grid">
       <div>
-        <div class="screenshot-frame"><img src="assets/g2-email-redacted.png" alt="G2 review request email (customer name redacted)"></div>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/g2-email-redacted.png')" src="assets/g2-email-redacted.png" alt="G2 review request email (customer name redacted)"></div>
         <p class="caption">The G2 review outreach that started the relationship. (Customer name redacted.)</p>
       </div>
       <div>
-        <div class="screenshot-frame"><img src="assets/cs3-webinar-ekam.png" alt="Customer webinar recap post and LinkedIn feedback"></div>
-        <p class="caption">The customer-as-speaker webinar that followed — and her own LinkedIn post about it afterward.</p>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/cs3-webinar-ekam.png')" src="assets/cs3-webinar-ekam.png" alt="Customer webinar recap post and LinkedIn feedback"></div>
+        <p class="caption">The customer-as-speaker webinar that followed, and her own LinkedIn post about it afterward.</p>
       </div>
     </div>
   </section>
 
   <section class="prose">
-    <h2>Getting featured on a partner's own site</h2>
-    <p>As PMM, I also built and shipped the integration page for Test Management by Testsigma on <strong>Linear's own website</strong> — third-party validation I didn't have to write myself. That placement led to a direct recommendation from Linear's team into a Fortune 500 enterprise account, now an active opportunity in our pipeline.</p>
+    <h2>Building a partner channel from scratch</h2>
+    <p>I initiated the partner marketing conversation with Linear directly. Built the Test Management by Testsigma integration page to their submission template and requirements, produced the embedded explainer video myself, and got it published on Linear's live integrations directory. Testsigma is now a recognized partner there, not just a mention.</p>
+    <p>It's already paying off as a trust signal: in at least one enterprise sales conversation, Linear's own team referenced Testsigma directly when advising a prospect on tooling options. A partner directory isn't just a listing. It's a channel other companies' sales teams can point their own customers toward, which is a different kind of validation than anything I could write myself.</p>
   </section>
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/cs3-linear-page.png" alt="Test Management by Testsigma integration page on Linear's website">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-linear-page.png')" src="assets/cs3-linear-page.png" alt="Test Management by Testsigma integration page on Linear's website">
     </div>
     <p class="caption">The Test Management by Testsigma integration, live on Linear's own site.</p>
   </section>
@@ -147,28 +259,69 @@
     <p class="quote">"I had the opportunity to work with Praveen on the couple of website product pages and content initiatives that gained visibility in AI/Answer Engine results. He has a strong growth marketing mindset with excellent expertise in CRO and content optimization. His ability to connect user behavior, content, and business goals really stands out."</p>
     <div class="attribution">
       <span class="name">Prasanna Kumar Totakura</span>
-      <span class="role">Senior SEO Analyst — worked with Praveen on the same team</span>
+      <span class="role">Senior SEO Analyst. Worked with Praveen on the same team</span>
     </div>
   </section>
 
   <section class="more-section">
     <h2>More from the same launch</h2>
+    <p>Guerrilla marketing outside GitLab's Epic Conference: a coffee cart with a Testsigma banner, handed out at the venue, to build brand visibility with exactly the audience most likely to need TMS.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-guerilla-gitlab.png')" src="assets/cs3-guerilla-gitlab.png" alt="LinkedIn post showing the guerrilla marketing coffee cart at GitLab's Epic Conference">
+    </div>
+    <p class="caption">The actual setup outside GitLab's Epic Conference.</p>
+  </section>
+
+  <section class="prose">
     <ul class="more-list">
-      <li><span class="num">Field</span>Ran guerrilla marketing outside GitLab's Epic Conference — a coffee cart with a Testsigma banner, handed out at the venue, to build brand visibility with exactly the audience most likely to need TMS.</li>
-      <li><span class="num">Pricing</span>Revamped the pricing page to a multi-product model as TMS launched alongside the core platform, rather than bolting it on as an afterthought.</li>
-      <li><span class="num">Battlecard</span>Built a feature-by-feature battlecard positioning Test Management by Testsigma against Zephyr, for sales enablement on competitive deals.</li>
+      <li><span class="num">Ready on day one</span>Revamped <a href="https://testsigma.com/pricing" target="_blank" rel="noopener" style="color: var(--teal);">the pricing page</a> to a multi-product model before TMS launched, not scrambled together after.</li>
+      <li><span class="num">Armed for competitive deals</span>Built a feature-by-feature <a href="assets/testsigma-vs-zephyr-battlecard.pdf" target="_blank" rel="noopener" style="color: var(--teal);">battlecard positioning Test Management by Testsigma against Zephyr</a>, for sales enablement on competitive deals.</li>
     </ul>
   </section>
 
   <footer>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
       <a href="index.html">Back to case studies</a>
     </div>
-    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+    <p>Praveen Visal | Growth &amp; Product Marketing</p>
   </footer>
 
 </div>
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
+    }
+  });
+</script>
 </body>
 </html>

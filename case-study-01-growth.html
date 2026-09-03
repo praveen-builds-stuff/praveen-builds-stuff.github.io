@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Growth Experimentation Engine — Praveen Visal</title>
+<title>The Growth Experimentation Engine | Praveen Visal</title>
 <style>
   :root {
     --bg: #000000;
@@ -115,6 +115,8 @@
     background: var(--surface);
   }
   .screenshot-frame img { width: 100%; display: block; }
+  .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 600px) { .shot-grid { grid-template-columns: 1fr; } }
   .caption { font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center; }
 
   section.prose { padding: 24px 0; }
@@ -165,6 +167,14 @@
     .stat-number { font-size: 64px; }
     .arc-node { width: 76px; height: 76px; font-size: 11px; }
   }
+
+  /* Lightbox */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 48px 24px; cursor: zoom-out; }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); cursor: default; }
+  .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1; padding: 8px; }
+
 </style>
 </head>
 <body>
@@ -179,11 +189,11 @@
 <div class="wrap">
 
   <section class="hero">
-    <span class="eyebrow">Case study 01 — Growth experimentation</span>
-    <h1>When an AI-led redesign backfired — and AI fixed it.</h1>
+    <span class="eyebrow">Case study 01: Growth experimentation</span>
+    <h1>When an AI-led redesign backfired, and AI fixed it.</h1>
     <div class="stat-row">
       <span class="stat-number">2x+</span>
-      <span class="stat-label">MQL conversion lift from one AI-diagnosed fix — landing above where the page started before anything went wrong.</span>
+      <span class="stat-label">MQL conversion lift from one AI-diagnosed fix, landing above where the page started before anything went wrong.</span>
     </div>
   </section>
 
@@ -204,28 +214,28 @@
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/tms-lp-after.png" alt="Testsigma mobile app testing landing page, current version">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/tms-lp-after.png')" src="assets/tms-lp-after.png" alt="Testsigma mobile app testing landing page, current version">
     </div>
-    <p class="caption">The page today — the hero section that came out of this fix.</p>
+    <p class="caption">The page today: the hero section that came out of this fix.</p>
   </section>
 
   <section class="prose">
     <h2>The setup</h2>
-    <p>Early in an experimentation cycle, we rolled out an AI-assisted redesign of the hero section on our core product testing pages — new copy, new layout, generated and refined quickly using AI tooling. It felt like a clear improvement on paper.</p>
+    <p>Early in an experimentation cycle, we rolled out an AI-assisted redesign of the hero section on our core product testing pages: new copy, new layout, generated and refined quickly using AI tooling. It felt like a clear improvement on paper.</p>
 
     <h2>The problem</h2>
-    <p>It wasn't. Conversion rate dropped after the change went live. Not a rounding error — a real, visible dip on pages that mattered.</p>
-    <p>The easy response would have been to guess at a second redesign, or just revert and call it a wash. Neither felt right. A worse hero section usually means a <strong>specific</strong> mismatch between what the page says and what the visitor actually needs to hear — not a generically "bad" page.</p>
+    <p>It wasn't. Conversion rate dropped after the change went live. Not a rounding error. A real, visible dip on pages that mattered.</p>
+    <p>The easy response would have been to guess at a second redesign, or just revert and call it a wash. Neither felt right. A worse hero section usually means a <strong>specific</strong> mismatch between what the page says and what the visitor actually needs to hear, not a generically "bad" page.</p>
 
     <h2>The diagnosis</h2>
-    <p>Instead of guessing, I used <strong>Attive</strong> to analyze call recordings from customers who'd actually closed — mining the transcripts for the recurring, product-specific pain points they described in their own words before they bought. That's a different exercise than asking "what do we think matters to buyers" — it's asking "what did buyers who actually converted say mattered to <strong>them</strong>."</p>
-    <p>Doing this manually — listening back through a month of closed-won calls, tagging themes, finding the patterns — would have taken hours. The AI-assisted pass took minutes, which meant the fix shipped fast enough to matter.</p>
+    <p>Instead of guessing, I used <strong>Gong and Attive</strong> to analyze call recordings from customers who'd actually closed, mining the transcripts for the recurring, product-specific pain points they described in their own words before they bought. That's a different exercise than asking "what do we think matters to buyers"; it's asking "what did buyers who actually converted say mattered to <strong>them</strong>."</p>
+    <p>Doing this manually (listening back through a month of closed-won calls, tagging themes, finding the patterns) would have taken hours. The AI-assisted pass took minutes, which meant the fix shipped fast enough to matter.</p>
 
     <h2>The fix</h2>
-    <p>I rewrote the hero copy to speak directly to the pain points the call data surfaced — replacing generic value language with the actual words and priorities real buyers had used when explaining why they bought.</p>
+    <p>I rewrote the hero copy to speak directly to the pain points the call data surfaced, replacing generic value language with the actual words and priorities real buyers had used when explaining why they bought.</p>
 
     <h2>The result</h2>
-    <p>Conversion didn't just recover. It landed meaningfully above where it had been <strong>before</strong> the AI redesign that caused the dip in the first place — more than a <strong>2x lift</strong> in MQL conversion on the pages involved.</p>
+    <p>Conversion didn't just recover. It landed meaningfully above where it had been <strong>before</strong> the AI redesign that caused the dip in the first place: more than a <strong>2x lift</strong> in MQL conversion on the pages involved.</p>
 
     <div class="callout">
       AI is excellent at compressing the time to insight. It's not a substitute for the insight-gathering step itself. The redesign that failed skipped straight to generation. The fix that worked used AI to listen first.
@@ -234,23 +244,63 @@
 
   <section class="more-section">
     <h2>More from the same program</h2>
-    <p>This wasn't a one-off — it's representative of how I run growth work generally: treat every result as a hypothesis to test, not a decision to defend.</p>
-    <ul class="more-list">
-      <li><span class="num">3x</span>Grew overall website conversion 3x and MQL conversion nearly 4x over the year through a continuous A/B testing program across the funnel.</li>
-      <li><span class="num">$1M+</span>Replaced a paid exit-intent tool with a self-built version — cut real subscription cost and turned an otherwise-lost segment of visitors into $1M+ in qualified pipeline.</li>
-      <li><span class="num">$170K</span>Launched a BDR-staffed live chat experiment on bottom-of-funnel pages that generated $170K in pipeline on its own.</li>
-    </ul>
+    <p>This wasn't a one-off. It's representative of how I run growth work generally: treat every result as a hypothesis to test, not a decision to defend. Across the full year, the same program grew overall website conversion <strong>3x</strong> and MQL conversion <strong>nearly 4x</strong> through continuous testing across the funnel, not just the one fix above. Two more moments from that same stretch.</p>
+
+    <h3 style="font-size: 19px; color: var(--text); margin: 24px 0 10px;">Exit-intent, replaced in-house</h3>
+    <p>Replaced a paid exit-intent tool with a self-built version, cutting <strong>~$1,440/year</strong> in subscription costs and turning an otherwise-lost segment of visitors into <strong>$1M+ in qualified pipeline</strong>.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img src="assets/cs4-exit-intent-setup.png" alt="Slack thread showing the in-house exit-intent popup and Narain's reaction">
+    </div>
+    <p class="caption">The popup, the day it shipped, with the actual monthly cost of the tool it replaced.</p>
+  </section>
+
+  <section class="prose">
+    <h3 style="font-size: 19px; color: var(--text); margin: 24px 0 10px;">Live chat on bottom-of-funnel pages</h3>
+    <p>Launched a BDR-staffed live chat experiment on bottom-of-funnel pages that generated <strong>$170K in pipeline</strong> on its own. A dedicated HubSpot chatbot triggers on the pricing page itself, and every response routes straight to sales as a real-time alert.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="shot-grid">
+      <div>
+        <div class="screenshot-frame"><img src="assets/cs1-livechat-emailnotif.png" alt="Email alert notifying a rep that a high-intent lead visited the pricing page"></div>
+        <p class="caption">The real-time alert a rep gets the moment a lead visits pricing. (Lead and CRM details redacted.)</p>
+      </div>
+      <div>
+        <div class="screenshot-frame"><img src="assets/cs1-livechat-narain.png" alt="Slack thread with Narain's appreciation of the chatbot experiment"></div>
+        <p class="caption">The experiment's first booked meeting, called out the same week it launched.</p>
+      </div>
+    </div>
   </section>
 
   <footer>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
       <a href="index.html">Back to case studies</a>
     </div>
-    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+    <p>Praveen Visal | Growth &amp; Product Marketing</p>
   </footer>
 
 </div>
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Two Stages of ABM — Praveen Visal</title>
+<title>Two Stages of ABM | Praveen Visal</title>
 <style>
   :root {
     --bg: #000000;
@@ -86,6 +86,38 @@
     .stat-number { font-size: 56px; }
     .arc-node { width: 84px; height: 84px; font-size: 10px; }
   }
+
+  /* Lightbox */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 48px 24px; cursor: zoom-out; }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); cursor: default; }
+  .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1; padding: 8px; }
+
+
+  /* Body of Work: deep-dive tiles and content modal */
+  .bow-section { padding: 48px 0; border-top: 1px solid var(--border); }
+  .bow-tile { display: flex; align-items: center; gap: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px 28px; cursor: pointer; transition: border-color 0.15s; }
+  .bow-tile:hover { border-color: var(--teal); }
+  .bow-tile:hover .bow-arrow { transform: translateX(4px); }
+  .bow-tile-icon { flex: 0 0 auto; width: 72px; height: 72px; }
+  .bow-tile-body { flex: 1; }
+  .bow-tile-title { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .bow-tile-teaser { font-size: 15px; color: var(--text-secondary); }
+  .bow-arrow { flex: 0 0 auto; color: var(--teal); font-size: 22px; transition: transform 0.15s; }
+
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; align-items: flex-start; justify-content: center; padding: 40px 20px; overflow-y: auto; }
+  .modal-overlay.active { display: flex; }
+  .modal-box { background: #0a0a0d; border: 1px solid var(--border); border-radius: 16px; max-width: 700px; width: 100%; padding: 40px 40px 48px; position: relative; margin-bottom: 40px; }
+  .modal-close { position: absolute; top: 20px; right: 24px; color: var(--text-muted); font-size: 30px; cursor: pointer; background: none; border: none; line-height: 1; }
+  .modal-close:hover { color: var(--text); }
+  .modal-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--teal); text-transform: uppercase; margin-bottom: 12px; }
+  .modal-title { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 24px; line-height: 1.3; }
+  .modal-block { margin-bottom: 26px; padding-left: 18px; border-left: 3px solid var(--modal-color, var(--teal)); }
+  .modal-block h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .modal-block p { font-size: 15px; color: var(--text-secondary); margin-bottom: 0; max-width: none; }
+  .modal-block .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--modal-color, var(--teal)); margin-bottom: 6px; }
+
 </style>
 </head>
 <body>
@@ -100,11 +132,11 @@
 <div class="wrap">
 
   <section class="hero">
-    <span class="eyebrow">Case study 02 — Account-based marketing</span>
+    <span class="eyebrow">Case study 02: Account-based marketing</span>
     <h1>Two stages of ABM: proving the model, then scaling it.</h1>
     <div class="stat-row">
       <span class="stat-number">$1.18M</span>
-      <span class="stat-label">in pipeline from a 7-week ABM campaign on ~$27K spend — built on top of a pilot that first proved the model.</span>
+      <span class="stat-label">in pipeline from a 7-week ABM campaign on ~$27K spend, built on top of a pilot that first proved the model.</span>
     </div>
   </section>
 
@@ -113,7 +145,7 @@
     <div class="arc">
       <div class="arc-node" style="--node-color: var(--coral)">No outbound<span class="sub">motion yet</span></div>
       <div class="arc-arrow"></div>
-      <div class="arc-node" style="--node-color: var(--blue)">Factors pilot<span class="sub">Jul 2024 — $1M</span></div>
+      <div class="arc-node" style="--node-color: var(--blue)">Factors pilot<span class="sub">Jul 2024 &middot; $1M</span></div>
       <div class="arc-arrow"></div>
       <div class="arc-node" style="--node-color: var(--purple)">Scaled team<span class="sub">1 to full BDR/LDR</span></div>
       <div class="arc-arrow"></div>
@@ -128,34 +160,34 @@
     <p>Testsigma had no systematic way of knowing which companies were browsing the site with real buying intent. Inbound was the only motion. Outbound existed on paper, but without a way to prioritize who to actually call, it rarely started.</p>
 
     <h2>The pilot</h2>
-    <p>In July 2024, I brought in <strong>Factors</strong> to de-anonymize website traffic — turning anonymous visitors into identifiable companies, then routing high-intent accounts to the right rep automatically. This wasn't a mature ABM program yet. It was a pilot, run to answer one question: is there real pipeline sitting in our anonymous traffic that we're simply not seeing?</p>
-    <p>The answer was yes. The pilot alone generated <strong>$1M in pipeline</strong> — and just as importantly, it gave Testsigma's outbound motion something it never had: a working, prioritized list of accounts actually worth calling.</p>
+    <p>In July 2024, I brought in <strong>Factors</strong> to de-anonymize website traffic, turning anonymous visitors into identifiable companies, then routing high-intent accounts to the right rep automatically. This wasn't a mature ABM program yet. It was a pilot, run to answer one question: is there real pipeline sitting in our anonymous traffic that we're simply not seeing?</p>
+    <p>The answer was yes. The pilot alone generated <strong>$1M in pipeline</strong>, and just as importantly, it gave Testsigma's outbound motion something it never had: a working, prioritized list of accounts actually worth calling.</p>
   </section>
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/factors-vignesh-redacted.png" alt="Factors.ai Slack notification showing high-intent account activity routed to a BDR">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/factors-vignesh-redacted.png')" src="assets/factors-vignesh-redacted.png" alt="Factors.ai Slack notification showing high-intent account activity routed to a BDR">
     </div>
-    <p class="caption">A live Factors alert routing a high-intent account straight to the owning BDR — this is the tooling behind the pilot, still running today. (Company details blurred.)</p>
+    <p class="caption">A live Factors alert routing a high-intent account straight to the owning BDR. This is the tooling behind the pilot, still running today. (Company details blurred.)</p>
   </section>
 
   <section class="prose">
     <h2>Scaling it</h2>
-    <p>Once the pilot proved the model, the motion scaled from a single BDR and LDR to the full team. De-anonymization stopped being an experiment and became a standing part of how Testsigma's outbound org operates — a reliable, quarter-over-quarter source of sales-accepted opportunities.</p>
+    <p>Once the pilot proved the model, the motion scaled from a single BDR and LDR to the full team. De-anonymization stopped being an experiment and became a standing part of how Testsigma's outbound org operates: a reliable, quarter-over-quarter source of sales-accepted opportunities.</p>
 
     <h2>The mature version: pure ABM</h2>
-    <p>With the foundation in place, I co-drove a dedicated ABM motion — a different level of sophistication from the original pilot. This time: LinkedIn ads served directly to a defined target-account list (TAM), coordinated with the BDR-owned account list so that by the time a rep reached out, the account had already heard of Testsigma.</p>
+    <p>With the foundation in place, I co-drove a dedicated ABM motion, a different level of sophistication from the original pilot. This time: LinkedIn ads served directly to a defined target-account list (TAM), coordinated with the BDR-owned account list so that by the time a rep reached out, the account had already heard of Testsigma.</p>
   </section>
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/abm-apac-ad.png" alt="LinkedIn ABM ad served to APAC target accounts">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/abm-apac-ad.png')" src="assets/abm-apac-ad.png" alt="LinkedIn ABM ad served to APAC target accounts">
     </div>
     <p class="caption">One of the LinkedIn ABM ads served to the APAC target-account list.</p>
   </section>
 
   <section class="prose">
-    <p>In its first 7 weeks, this campaign generated <strong>$1.18M in pipeline</strong> — $748K of it directly ABM-influenced — on roughly $27K in spend. Three deals closed won in that window, and every one of them was 80%+ ABM-influenced before close.</p>
+    <p>In its first 7 weeks, this campaign generated <strong>$1.18M in pipeline</strong> ($748K of it directly ABM-influenced) on roughly $27K in spend. Three deals closed won in that window, and every one of them was 80%+ ABM-influenced before close.</p>
 
     <div class="callout">
       Two numbers, two different maturity levels. The pilot proved the model existed and gave the org its first outbound motion. The ABM campaign is what that model looks like once it's deliberately built out. Neither one is the whole story without the other.
@@ -164,33 +196,137 @@
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
-      <img src="assets/abm-yashaswini-post.png" alt="Internal Slack post reporting the ABM campaign's pipeline and closed-won results">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/abm-yashaswini-post.png')" src="assets/abm-yashaswini-post.png" alt="Internal Slack post reporting the ABM campaign's pipeline and closed-won results">
     </div>
-    <p class="caption">The internal results readout on the ABM campaign — the source of the $1.18M / $748K figures above.</p>
+    <p class="caption">The internal results readout on the ABM campaign: the source of the $1.18M / $748K figures above.</p>
   </section>
 
   <section class="testimonial">
-    <p class="quote">"With Testsigma, he implemented and drove the adoption of Factors (ABM platform) which kickstarted the outbound motion and enabled to increase outbound pipeline and add 1 Million in Pipeline. Along with this, I have seen Praveen launch our GTM products — Atto and Arcus — live. Praveen has always been warm, easy to collaborate with and bridges the gap together. 10/10 — recommended."</p>
+    <p class="quote">"With Testsigma, he implemented and drove the adoption of Factors (ABM platform) which kickstarted the outbound motion and enabled to increase outbound pipeline and add 1 Million in Pipeline. Along with this, I have seen Praveen launch our GTM products, Atto and Arcus, live. Praveen has always been warm, easy to collaborate with and bridges the gap together. 10/10, recommended."</p>
     <div class="attribution">
       <span class="name">Shreyas Sachidananda</span>
-      <span class="role">SMB and Commercial AE at Testsigma — worked with Praveen on different teams</span>
+      <span class="role">SMB and Commercial AE at Testsigma. Worked with Praveen on different teams</span>
     </div>
   </section>
 
+  <section class="bow-section">
+    <h2>The full scoring and reporting logic</h2>
+    <p>The two headline numbers above are the outcome. Underneath them is a real system for deciding which accounts are worth a BDR's time, when, and why. Here's how it actually works.</p>
+    <div class="bow-tile" onclick="openModal('modal-abm')">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <line x1="36" y1="36" x2="14" y2="14" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="58" y2="14" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="14" y2="58" stroke="#2a2a2e" stroke-width="1.5"/>
+        <line x1="36" y1="36" x2="58" y2="58" stroke="#2a2a2e" stroke-width="1.5"/>
+        <circle cx="36" cy="36" r="8" fill="#8FE3C0"/>
+        <circle cx="14" cy="14" r="4" fill="#E88BB0"/>
+        <circle cx="58" cy="14" r="4" fill="#5B7FE8"/>
+        <circle cx="14" cy="58" r="4" fill="#C77DD1"/>
+        <circle cx="58" cy="58" r="4" fill="#F2934A"/>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">ABM Scoring &amp; Reporting Logic</div>
+        <div class="bow-tile-teaser">Intent scoring, temperature tiers, decay, sourced vs. influenced, BDR SLAs, and exit criteria, all in one place.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="modal-abm" onclick="if(event.target===this)closeModal('modal-abm')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-abm')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">ABM Scoring &amp; Reporting Logic</div>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">Intent scoring</span>
+        <h4>How an account earns a score</h4>
+        <p>Factors tracks specific page visits and assigns each one a weight. A pricing-page visit counts for a lot more than a general browse, and a docs-page visit, a strong buying signal, carries real weight too. These weighted signals sum into a single account score.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E88BB0;">
+        <span class="tag">Temperature tiers</span>
+        <h4>Ice, cold, warm, hot</h4>
+        <p>Based on the summed score, every account lands in a tier. I set the thresholds so BDRs only get accounts actually worth calling: roughly 80 and above is hot, 60 to 80 is warm. Below that, it stays with marketing, not sales.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #5B7FE8;">
+        <span class="tag">Why ABM ads exist in this system</span>
+        <h4>Moving an account up a tier without waiting for them to come back</h4>
+        <p>It's the same repeated-exposure effect as a retargeted product ad following you on Instagram. Enough LinkedIn ad impressions on the right account, and their next visit reads as real intent, not cold traffic. That's the intent priming that moves an account from cold toward warm, and warm toward hot.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #C77DD1;">
+        <span class="tag">Decay logic</span>
+        <h4>Heat doesn't last</h4>
+        <p>An account with no activity starts decaying, and after about 90 days with zero touch, it resets. This isn't cosmetic. It's the reason we can't just assign every account to hot forever and call it a strategy.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #F2934A;">
+        <span class="tag">Sourced vs. influenced</span>
+        <h4>The distinction most people get wrong</h4>
+        <p><strong>Sourced</strong> means ABM revived a genuinely cold or dead account, one no BDR was actively working, and brought them back into a real conversation. <strong>Influenced</strong> means a BDR was already in touch, and ABM's job was to warm the account up before that call landed, so the rep isn't reaching out cold to a company that's never heard of Testsigma.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">BDR SLAs and multi-threading</span>
+        <h4>What happens once an account goes hot</h4>
+        <p>The clock starts: first contact attempted within 24 hours, next steps defined by 48 to 72 hours. And it can't be one channel to one contact. The same account often has ten or more people who could have been the one browsing our site, so outreach has to hit multiple contacts across multiple channels: call, LinkedIn, email, not just an email and done.</p>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E06B7A;">
+        <span class="tag">Exit criteria</span>
+        <h4>Knowing when to stop</h4>
+        <p>Showing ads to an account that's already bought a competitor's product is wasted spend, and it's one of the real gaps I found and fixed. If a BDR reports an account is dead or gone with a competitor, it comes out of the ABM list. Ads without an exit condition aren't a program. They're just spend.</p>
+      </div>
+    </div>
+  </div>
+
   <section class="more-section">
     <h2>Why this matters beyond the numbers</h2>
-    <p>ABM only works if sales and marketing are actually reading the same signal. The recommendation above is from an AE, not a peer marketer — evidence that this wasn't a campaign run in isolation, but a motion built with the sales team, for the sales team.</p>
+    <p>ABM only works if sales and marketing are actually reading the same signal. The recommendation above is from an AE, not a peer marketer, evidence that this wasn't a campaign run in isolation, but a motion built with the sales team, for the sales team.</p>
   </section>
 
   <footer>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
       <a href="index.html">Back to case studies</a>
     </div>
-    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+    <p>Praveen Visal | Growth &amp; Product Marketing</p>
   </footer>
 
 </div>
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+<script>
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(function(m) { m.classList.remove('active'); });
+    }
+  });
+</script>
 </body>
 </html>

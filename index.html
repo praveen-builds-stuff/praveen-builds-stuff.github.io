@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Praveen Visal — Growth &amp; Product Marketing</title>
+<title>Praveen Visal | Growth &amp; Product Marketing</title>
 <style>
   :root {
     --bg: #000000; --surface: #0d0d10; --border: #2a2a2e;
@@ -24,6 +24,16 @@
   .tagline { font-size: 30px; font-weight: 700; font-style: italic; line-height: 1.25; max-width: 600px; margin-bottom: 20px; }
   .tagline .grad { background: linear-gradient(135deg, var(--teal), var(--pink)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
   .intro { font-size: 17px; color: var(--text-secondary); max-width: 620px; margin-bottom: 8px; }
+  .hero-bullets { list-style: none; max-width: 640px; margin-bottom: 8px; }
+  .hero-bullets li { display: flex; gap: 12px; font-size: 17px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 14px; }
+  .hero-bullets li::before { content: ""; flex: 0 0 auto; width: 7px; height: 7px; border-radius: 50%; background: var(--teal); margin-top: 8px; }
+  .hero-bullets strong { color: var(--text); }
+
+  .contact-box { display: flex; gap: 40px; flex-wrap: wrap; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px 28px; }
+  .contact-item { display: flex; flex-direction: column; gap: 4px; }
+  .contact-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--orange); text-transform: uppercase; }
+  .contact-item a, .contact-item span:not(.contact-label) { font-size: 17px; color: var(--text); text-decoration: none; font-weight: 500; }
+  .contact-item a:hover { color: var(--teal); }
 
   .highlight-strip { display: flex; align-items: center; gap: 14px; margin: 28px 0; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
   .highlight-strip .star { color: var(--teal); font-size: 20px; }
@@ -31,6 +41,15 @@
   .highlight-strip strong { color: var(--text); }
 
   h2.section-title { font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: var(--teal); text-transform: uppercase; margin: 56px 0 24px; }
+
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .work-grid { grid-template-columns: 1fr; } }
+  .work-card { display: flex; align-items: center; justify-content: space-between; gap: 16px; text-decoration: none; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; transition: border-color 0.15s; }
+  .work-card:hover { border-color: var(--teal); }
+  .work-card-body { flex: 1; min-width: 0; }
+  .work-card-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--orange); text-transform: uppercase; margin-bottom: 4px; }
+  .work-card-title { font-size: 15px; font-weight: 600; color: var(--text); }
+  .work-card-arrow { flex: 0 0 auto; color: var(--teal); font-size: 18px; }
 
   .cs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 640px) { .cs-grid { grid-template-columns: 1fr; } }
@@ -53,7 +72,7 @@
   @media (max-width: 700px) { .supp-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 460px) { .supp-grid { grid-template-columns: 1fr; } }
   .supp-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  .supp-item img { width: 100%; height: 110px; object-fit: cover; display: block; }
+  .supp-item img { width: 100%; height: 170px; object-fit: cover; display: block; }
   .supp-item p { font-size: 12.5px; color: var(--text-muted); padding: 10px 12px; margin: 0; line-height: 1.4; }
 
   footer { padding: 64px 0 64px; margin-top: 56px; border-top: 1px solid var(--border); }
@@ -63,6 +82,14 @@
   footer p { color: var(--text-muted); font-size: 14px; margin-top: 20px; }
 
   @media (max-width: 600px) { .tagline { font-size: 24px; } }
+
+  /* Lightbox */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 48px 24px; cursor: zoom-out; }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); cursor: default; }
+  .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1; padding: 8px; }
+
 </style>
 </head>
 <body>
@@ -72,7 +99,7 @@
     <a href="index.html">Praveen Visal</a>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
     </div>
   </div>
 </header>
@@ -81,42 +108,82 @@
 
   <section class="hero">
     <h1 class="tagline">Growth and product marketing, <span class="grad">built with AI.</span></h1>
-    <p class="intro">I'm a growth and product marketer who treats the funnel as a series of experiments, not a set of opinions to defend. When the right tool doesn't exist, I build it — I ship real internal tools, not just prompts. Four case studies below cover how that's actually played out at Testsigma: growth experimentation, account-based marketing, product marketing for a launch I owned solo, and the tools I've built along the way.</p>
+    <ul class="hero-bullets">
+      <li><span>A growth &amp; product marketer with 7+ years in B2B SaaS who treats the full funnel as a series of experiments: CRO, demand generation, ABM &amp; GTM.</span></li>
+      <li><span>Over 2025 at Testsigma, grew overall website conversion <strong>3x</strong> &amp; MQL conversion <strong>nearly 4x</strong>, served as the sole product marketer for a new product's go-to-market.</span></li>
+      <li><span>Shipped <strong>five internal AI tools</strong> now used across sales and marketing.</span></li>
+    </ul>
 
     <div class="highlight-strip">
       <span class="star">&#9733;</span>
-      <p><strong>Three-time Marketing MVP</strong> (Q2 &amp; Q3 2023, Q4 2024) — plus Rising Star at Freshworks and Employee of the Year at Neeyamo.</p>
+      <p><strong>Three-time Marketing MVP</strong> (Q2 &amp; Q3 2023, Q4 2024), promoted from Marketing Analyst to Growth Marketing Lead.</p>
     </div>
   </section>
 
   <h2 class="section-title">Case studies</h2>
   <div class="cs-grid">
     <a href="case-study-01-growth.html" class="cs-card">
-      <div class="cs-num">01 — Growth</div>
-      <div class="cs-title">When an AI-led redesign backfired — and AI fixed it.</div>
+      <div class="cs-num">01: Growth</div>
+      <div class="cs-title">When an AI-led redesign backfired, and AI fixed it.</div>
       <div class="cs-stat"><strong>2x+</strong> MQL lift from one AI-diagnosed fix</div>
     </a>
     <a href="case-study-02-abm.html" class="cs-card">
-      <div class="cs-num">02 — ABM</div>
+      <div class="cs-num">02: ABM</div>
       <div class="cs-title">Two stages of ABM: proving the model, then scaling it.</div>
       <div class="cs-stat"><strong>$1.18M</strong> pipeline from a 7-week campaign</div>
     </a>
     <a href="case-study-03-pmm.html" class="cs-card">
-      <div class="cs-num">03 — PMM &amp; GTM</div>
+      <div class="cs-num">03: PMM &amp; GTM</div>
       <div class="cs-title">Sole PMM for a new product, from launch to its first enterprise deal.</div>
       <div class="cs-stat"><strong>#1</strong> ranking, traced to that first deal</div>
     </a>
     <a href="case-study-04-builder.html" class="cs-card">
-      <div class="cs-num">04 — Builder</div>
+      <div class="cs-num">04: Builder</div>
       <div class="cs-title">I build the tool before I request the headcount.</div>
-      <div class="cs-stat"><strong>4</strong> internal AI tools shipped and adopted</div>
+      <div class="cs-stat"><strong>5</strong> internal AI tools shipped and adopted</div>
+    </a>
+  </div>
+
+  <h2 class="section-title">Recent samples of work</h2>
+  <div class="work-grid">
+    <a class="work-card" href="https://testsigma.com/blog/how-to-use-claude-for-testing/" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Blog</div><div class="work-card-title">How to Use Claude for Testing</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://linear.app/integrations/test-management-by-testsigma" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Integration Page</div><div class="work-card-title">Linear &times; Test Management by Testsigma</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://testsigma.com/pricing" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Pricing Page</div><div class="work-card-title">Testsigma's Multi-Product Pricing</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://testsigma.com/lp/test-automation-platform" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Ad Landing Page</div><div class="work-card-title">Test Automation Platform</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://testsigma.com/test-management-software" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Product Page</div><div class="work-card-title">Test Management by Testsigma</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="assets/cheatsheet-prompt-like-a-pro.pdf" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Cheatsheet</div><div class="work-card-title">How to Prompt Like a Pro</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://youtu.be/6NzW_Ubn7AM?si=YdKzoB1nH1R0BHbZ" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Feature Launch Video</div><div class="work-card-title">Introducing Two-Way Jira Integration</div></div>
+      <div class="work-card-arrow">&#8599;</div>
+    </a>
+    <a class="work-card" href="https://chromewebstore.google.com/detail/cited/fjhmdgjkeljcnkgbkbijhppclkpenflf" target="_blank" rel="noopener">
+      <div class="work-card-body"><div class="work-card-tag">Chrome Extension</div><div class="work-card-title">Cited, for AEO Analysis</div></div>
+      <div class="work-card-arrow">&#8599;</div>
     </a>
   </div>
 
   <h2 class="section-title">What people say</h2>
   <div class="testimonial-row">
     <div class="testimonial">
-      <p class="quote">"With Testsigma, he implemented and drove the adoption of Factors (ABM platform) which kickstarted the outbound motion and enabled to increase outbound pipeline and add 1 Million in Pipeline. 10/10 — recommended."</p>
+      <p class="quote">"With Testsigma, he implemented and drove the adoption of Factors (ABM platform) which kickstarted the outbound motion and enabled to increase outbound pipeline and add 1 Million in Pipeline. 10/10, recommended."</p>
       <div class="attribution">
         <span class="name">Shreyas Sachidananda</span>
         <span class="role">SMB &amp; Commercial AE, Testsigma</span>
@@ -133,48 +200,53 @@
       <p class="quote">"He demonstrated a strong understanding of content strategy and consistently delivered results. Praveen is a dedicated and results-oriented professional, and a great addition to any team."</p>
       <div class="attribution">
         <span class="name">Amirtha Varshini</span>
-        <span class="role">Integrated Marketing, Testsigma</span>
+        <span class="role">Analyst &amp; Advisory Relations, Neeyamo</span>
       </div>
     </div>
   </div>
 
-  <h2 class="section-title">Also worth a look</h2>
-  <div class="supp-grid">
-    <div class="supp-item">
-      <img src="assets/supp-meme-1.png" alt="Testsigma guerrilla-style street interview meme, change my mind format">
-      <p>"Change my mind" street-interview format — 29 reactions, 4,111 impressions organically.</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-box">
+    <div class="contact-item">
+      <span class="contact-label">Email</span>
+      <a href="mailto:prvnvisal@gmail.com">prvnvisal@gmail.com</a>
     </div>
-    <div class="supp-item">
-      <img src="assets/supp-meme-2.png" alt="Testsigma LinkedIn meme promoting a webinar, bus and train visual">
-      <p>A webinar-promo meme I wrote and shipped — 51 reactions, 11 comments, 5,421 impressions organically.</p>
+    <div class="contact-item">
+      <span class="contact-label">Phone</span>
+      <a href="tel:+919791755945">+91 97917 55945</a>
     </div>
-    <div class="supp-item">
-      <img src="assets/supp-notifications.png" alt="Slack recognition for the sales notification system">
-      <p>Built a Slack + email system alerting reps to high-intent activity — "a classic example of small things that move the needle."</p>
-    </div>
-    <div class="supp-item">
-      <img src="assets/supp-livechat.png" alt="Live chat widget on the pricing page with a BDR-staffed conversation">
-      <p>BDR-staffed live chat on the pricing page — real reps, not a bot, answering in real time.</p>
-    </div>
-    <div class="supp-item">
-      <img src="assets/supp-freshworks-16k.png" alt="Freshworks candidate rejection email templates page">
-      <p>A Freshworks content page that pulled 16K+ organic visits. No longer live — this screenshot is the only remaining record.</p>
-    </div>
-    <div class="supp-item">
-      <img src="assets/cs4-exit-intent-setup.png" alt="Slack announcement of the in-house exit-intent popup build">
-      <p>The in-house exit-intent popup replacement, the day it shipped — "this is brilliant!"</p>
+    <div class="contact-item">
+      <span class="contact-label">Location</span>
+      <span>Bengaluru, India</span>
     </div>
   </div>
 
   <footer>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
       <a href="mailto:prvnvisal@gmail.com">Email</a>
     </div>
-    <p>Praveen Visal — Growth &amp; Product Marketing — Bengaluru, India</p>
+    <p>Praveen Visal | Growth &amp; Product Marketing | Bengaluru, India</p>
   </footer>
 
 </div>
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 </body>
 </html>

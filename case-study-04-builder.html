@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Building the Tools Nobody Asked For — Praveen Visal</title>
+<title>Building the Tools Nobody Asked For | Praveen Visal</title>
 <style>
   :root {
     --bg: #000000; --surface: #0d0d10; --border: #2a2a2e;
@@ -44,6 +44,14 @@
   footer a:hover { text-decoration: underline; }
   footer p { color: var(--text-muted); font-size: 14px; margin-top: 20px; }
   @media (max-width: 600px) { h1 { font-size: 28px; } .stat-number { font-size: 64px; } }
+
+  /* Lightbox */
+  .lightbox-trigger { cursor: zoom-in; }
+  .lightbox-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 48px 24px; cursor: zoom-out; }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img { max-width: 100%; max-height: 88vh; border-radius: 8px; box-shadow: 0 24px 64px rgba(0,0,0,0.6); cursor: default; }
+  .lightbox-close { position: absolute; top: 20px; right: 28px; color: #fff; font-size: 34px; cursor: pointer; background: none; border: none; line-height: 1; padding: 8px; }
+
 </style>
 </head>
 <body>
@@ -58,25 +66,25 @@
 <div class="wrap">
 
   <section class="hero">
-    <span class="eyebrow">Case study 04 — Building with AI</span>
+    <span class="eyebrow">Case study 04: Building with AI</span>
     <h1>I build the tool before I request the headcount.</h1>
     <div class="stat-row">
-      <span class="stat-number">4</span>
-      <span class="stat-label">internal AI tools shipped and adopted — no dev team, no budget request, no headcount added.</span>
+      <span class="stat-number">5</span>
+      <span class="stat-label">internal AI tools shipped and adopted. No dev team, no budget request, no headcount added.</span>
     </div>
   </section>
 
   <section class="tool-section">
     <div class="tool-label">Tool 01</div>
-    <div class="tool-title">Canary — a landing page monitor that runs before I'm awake</div>
+    <div class="tool-title">Canary: a landing page monitor that runs before I'm awake</div>
     <p>Every paid landing page failing silently is money spent driving traffic to a broken page. Canary runs two checks every morning: a lightweight 404 sweep across every URL in about 13 seconds, then a deeper pass for broken CTAs, dead HubSpot form embeds, and broken modals. An email lands in my inbox before I start my day.</p>
     <p>Some days it's all green. Some days it saves me from a bad morning.</p>
     <div class="shot-grid">
       <div>
-        <div class="screenshot-frame"><img src="assets/cs4-canary-1.png" alt="Canary daily report email showing pass/fail status across pages"></div>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/cs4-canary-1.png')" src="assets/cs4-canary-1.png" alt="Canary daily report email showing pass/fail status across pages"></div>
       </div>
       <div>
-        <div class="screenshot-frame"><img src="assets/cs4-canary-2.png" alt="Canary detailed check output for one landing page"></div>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/cs4-canary-2.png')" src="assets/cs4-canary-2.png" alt="Canary detailed check output for one landing page"></div>
       </div>
     </div>
     <p class="caption">The daily report, and the detailed check behind one page's result. (URLs partially redacted.)</p>
@@ -84,56 +92,83 @@
 
   <section class="tool-section">
     <div class="tool-label">Tool 02</div>
-    <div class="tool-title">ROI calculator — built for AEs, approved by the CTO</div>
-    <p>AEs needed a fast, credible way to show prospects the return on switching to Testsigma — not a static spreadsheet, a real interactive tool. I built the front end myself, iterated the underlying logic with engineering, and added PDF export so AEs could drop it straight into a deck.</p>
+    <div class="tool-title">ROI calculator: built for AEs, approved by the CTO</div>
+    <p>AEs needed a fast, credible way to show prospects the return on switching to Testsigma: not a static spreadsheet, a real interactive tool. I built the front end myself, iterated the underlying logic with engineering, and added PDF export so AEs could drop it straight into a deck.</p>
     <p>It went through a CTO review before shipping, and it's been in active use in sales decks since.</p>
     <div class="screenshot-frame">
-      <img src="assets/cs4-roi-calc-slack.png" alt="Slack announcement of the ROI calculator launch with team reactions">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs4-roi-calc-slack.png')" src="assets/cs4-roi-calc-slack.png" alt="Slack announcement of the ROI calculator launch with team reactions">
     </div>
-    <p class="caption">The launch announcement — the CTO's "good job" is in the thread.</p>
+    <p class="caption">The launch announcement. The CTO's "good job" is in the thread.</p>
   </section>
 
   <section class="tool-section">
     <div class="tool-label">Tool 03</div>
-    <div class="tool-title">Cited — competitor analysis in 30 seconds, not 45 minutes</div>
-    <p>Every time someone needed to understand why a competitor's page was getting picked up in AI search results, it meant manually digging through the page, taking notes, and writing a brief from scratch — a 45-minute task done from zero every time. Cited is a Chrome extension that runs the same analysis — AEO signal score, citable questions, a ready-to-use brief, prioritized action items — on any page you're already viewing.</p>
+    <div class="tool-title">Cited: competitor analysis in 30 seconds, not 45 minutes</div>
+    <p>Every time someone needed to understand why a competitor's page was getting picked up in AI search results, it meant manually digging through the page, taking notes, and writing a brief from scratch, a 45-minute task done from zero every time. Cited is a Chrome extension that runs the same analysis (AEO signal score, citable questions, a ready-to-use brief, prioritized action items) on any page you're already viewing.</p>
     <div class="shot-grid">
       <div>
-        <div class="screenshot-frame"><img src="assets/cited-get-started.png" alt="Cited Chrome extension panel showing its feature overview on a HubSpot blog page"></div>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/cited-get-started.png')" src="assets/cited-get-started.png" alt="Cited Chrome extension panel showing its feature overview on a HubSpot blog page"></div>
       </div>
       <div>
-        <div class="screenshot-frame"><img src="assets/cited-signal-score.png" alt="Cited's AEO signal score breakdown for the same page, showing 4 of 8 signals present"></div>
+        <div class="screenshot-frame"><img class="lightbox-trigger" onclick="openLightbox('assets/cited-signal-score.png')" src="assets/cited-signal-score.png" alt="Cited's AEO signal score breakdown for the same page, showing 4 of 8 signals present"></div>
       </div>
     </div>
-    <p class="caption">Cited running live on a HubSpot blog page — the feature overview, then the actual AEO signal breakdown it produces. <a href="https://chromewebstore.google.com/detail/cited/fjhmdgjkeljcnkgbkbijhppclkpenflf" style="color: var(--teal);">Live on the Chrome Web Store</a>.</p>
+    <p class="caption">Cited running live on a HubSpot blog page: the feature overview, then the actual AEO signal breakdown it produces. <a href="https://chromewebstore.google.com/detail/cited/fjhmdgjkeljcnkgbkbijhppclkpenflf" style="color: var(--teal);">Live on the Chrome Web Store</a>.</p>
   </section>
 
   <section class="tool-section">
     <div class="tool-label">Tool 04</div>
-    <div class="tool-title">CRO-audit agent — now a team-wide skill, not just mine</div>
-    <p>I built an agent that generates conversion hypotheses directly from a page screenshot and a heatmap — no analytics access required. What made it worth sharing was converting it into a Claude skill the entire team could run themselves, not just something that lived in my own workflow.</p>
-    <p>This is also the tool I built live during Testsigma's first company-wide GTM AI hackathon — while simultaneously running the event's tech stack and tooling for close to 100 participants across five non-technical functions. It placed top 5 of 35 teams.</p>
+    <div class="tool-title">CRO-audit agent, now a team-wide skill, not just mine</div>
+    <p>I built an agent that generates conversion hypotheses directly from a page screenshot and a heatmap, with no analytics access required. What made it worth sharing was converting it into a Claude skill the entire team could run themselves, not just something that lived in my own workflow.</p>
+    <p>The instructions behind it are deliberately strict about one thing: a confident recommendation built on a wrong assumption is worse than no recommendation at all. The skill is required to separate what it can actually observe in the screenshots from what it's inferring, and to ask for missing inputs rather than guess.</p>
     <div class="screenshot-frame">
-      <img src="assets/cs4-hackathon.png" alt="LinkedIn post and comments recognizing the hackathon organizing and results">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs4-cro-audit-skill.png')" src="assets/cs4-cro-audit-skill.png" alt="The cro-audit Claude skill definition, showing its persona, required inputs, and instructions to separate observation from inference">
     </div>
-    <p class="caption">The hackathon recap — organizing it and competing in it, on the same day.</p>
+    <p class="caption">The actual skill definition, not just the pitch for it.</p>
+  </section>
+
+  <section class="tool-section">
+    <div class="tool-label">Tool 05</div>
+    <div class="tool-title">Ad-intelligence hub, built live during a hackathon</div>
+    <p>I co-organized Testsigma's first company-wide GTM AI hackathon, owning tech stack and tooling for close to 100 participants across five non-technical functions, then spent the same event building my own submission: a self-built ad-intelligence tool. It placed top 5 of 35 teams.</p>
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs4-hackathon.png')" src="assets/cs4-hackathon.png" alt="LinkedIn post and comments recognizing the hackathon organizing and results">
+    </div>
+    <p class="caption">The hackathon recap: organizing it and competing in it, on the same day.</p>
   </section>
 
   <section class="tool-section" style="border-top: 1px solid var(--border);">
     <div class="callout">
-      None of these were requested. Each one started because a task kept eating time that should've gone somewhere else — and building the fix was faster than waiting for someone else to prioritize it.
+      None of these were requested. Each one started because a task kept eating time that should've gone somewhere else, and building the fix was faster than waiting for someone else to prioritize it.
     </div>
   </section>
 
   <footer>
     <div class="links">
       <a href="https://www.linkedin.com/in/praveenvisal/">LinkedIn</a>
-      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">GitHub</a>
+      <a href="https://github.com/praveen-builds-stuff/ai-growth-toolkit">AI Toolkit</a>
       <a href="index.html">Back to case studies</a>
     </div>
-    <p>Praveen Visal — Growth &amp; Product Marketing</p>
+    <p>Praveen Visal, Growth &amp; Product Marketing</p>
   </footer>
 
 </div>
+
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-overlay').classList.add('active');
+  }
+  function closeLightbox(e) {
+    document.getElementById('lightbox-overlay').classList.remove('active');
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
 </body>
 </html>
