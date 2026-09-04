@@ -116,6 +116,9 @@
   .modal-block { margin-bottom: 26px; padding-left: 18px; border-left: 3px solid var(--modal-color, var(--teal)); }
   .modal-block h4 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
   .modal-block p { font-size: 15px; color: var(--text-secondary); margin-bottom: 0; max-width: none; }
+  .modal-block ul { margin: 8px 0 0; padding-left: 18px; }
+  .modal-block li { font-size: 15px; color: var(--text-secondary); margin-bottom: 6px; line-height: 1.5; }
+  .modal-block li:last-child { margin-bottom: 0; }
   .modal-block .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--modal-color, var(--teal)); margin-bottom: 6px; }
 
 </style>
@@ -246,8 +249,14 @@
 
       <div class="modal-block" style="--modal-color: #E88BB0;">
         <span class="tag">Temperature tiers</span>
-        <h4>Ice, cold, warm, hot</h4>
-        <p>Based on the summed score, every account lands in a tier. I set the thresholds so BDRs only get accounts actually worth calling: roughly 80 and above is hot, 60 to 80 is warm. Below that, it stays with marketing, not sales.</p>
+        <h4>Four tiers, not just hot and warm</h4>
+        <ul>
+          <li><strong>Hot (80+ points):</strong> BDR-owned, 4-business-hour response SLA</li>
+          <li><strong>Warm (50-79):</strong> BDR-owned, next-business-day response</li>
+          <li><strong>Cool (1-49):</strong> marketing-owned, held until a second signal arrives</li>
+          <li><strong>Ice (0):</strong> unassigned, no action</li>
+        </ul>
+        <p style="margin-top: 8px;">A third-party intent spike with no first-party engagement yet gets separate handling: it queues for ads and cold outbound, but never gets labeled warm until the account actually engages directly.</p>
       </div>
 
       <div class="modal-block" style="--modal-color: #5B7FE8;">
@@ -265,13 +274,13 @@
       <div class="modal-block" style="--modal-color: #F2934A;">
         <span class="tag">Sourced vs. influenced</span>
         <h4>The distinction most people get wrong</h4>
-        <p><strong>Sourced</strong> means ABM revived a genuinely cold or dead account, one no BDR was actively working, and brought them back into a real conversation. <strong>Influenced</strong> means a BDR was already in touch, and ABM's job was to warm the account up before that call landed, so the rep isn't reaching out cold to a company that's never heard of Testsigma.</p>
+        <p><strong>Sourced</strong> means ABM revived a genuinely cold or dead account, one no BDR was actively working, and brought them back into a real conversation. <strong>Influenced</strong> means a BDR was already in touch, and ABM's job was to warm the account up before that call landed, so the rep isn't reaching out cold to a company that's never heard of Testsigma. I track both separately in recurring reporting, by opportunity count and pipeline value, not as one blended ABM number.</p>
       </div>
 
       <div class="modal-block" style="--modal-color: #8FE3C0;">
         <span class="tag">BDR SLAs and multi-threading</span>
         <h4>What happens once an account goes hot</h4>
-        <p>The clock starts: first contact attempted within 24 hours, next steps defined by 48 to 72 hours. And it can't be one channel to one contact. The same account often has ten or more people who could have been the one browsing our site, so outreach has to hit multiple contacts across multiple channels: call, LinkedIn, email, not just an email and done.</p>
+        <p>The clock starts immediately: first touch within 4 business hours of the alert, not the next day. From there it's a 7 to 10 touch cadence over roughly 10 days, personalized at the account and persona level. And it can't be one channel to one contact. The same account often has ten or more people who could have been the one browsing our site, so outreach hits multiple contacts across multiple channels: LinkedIn, email, and calls, not just an email and done.</p>
       </div>
 
       <div class="modal-block" style="--modal-color: #E06B7A;">
@@ -281,6 +290,14 @@
       </div>
     </div>
   </div>
+
+  <section class="arc-section">
+    <div class="arc-label">The full activity, not just this one campaign</div>
+    <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 16px;">Everything above happened inside this specific process, the same one regardless of which company I'm doing it at. Click to see it full size.</p>
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs2-abm-mindmap.png')" src="assets/cs2-abm-mindmap.png" alt="Mindmap of the full ABM process: signal-based scoring, dark intent handling, target list construction, auditing an inherited program, regional segmentation, funnel-stage plays, sales operational infrastructure, and sourced/influenced reporting">
+    </div>
+  </section>
 
   <section class="more-section">
     <h2>Why this matters beyond the numbers</h2>
