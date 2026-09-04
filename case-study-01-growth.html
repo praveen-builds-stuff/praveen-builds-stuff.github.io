@@ -116,6 +116,8 @@
   }
   .screenshot-frame img { width: 100%; display: block; }
   .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .shot-grid > div { display: flex; flex-direction: column; }
+  .shot-grid > div .caption { margin-top: auto; padding-top: 12px; }
   @media (max-width: 600px) { .shot-grid { grid-template-columns: 1fr; } }
   .caption { font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center; }
 

@@ -37,6 +37,8 @@
   .screenshot-frame img { width: 100%; display: block; }
   .caption { font-size: 14px; color: var(--text-muted); margin-top: 12px; text-align: center; }
   .shot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .shot-grid > div { display: flex; flex-direction: column; }
+  .shot-grid > div .caption { margin-top: auto; padding-top: 12px; }
   @media (max-width: 600px) { .shot-grid { grid-template-columns: 1fr; } }
   section.prose { padding: 24px 0; }
   h2 { font-size: 22px; font-weight: 700; margin: 40px 0 16px; color: var(--text); }
@@ -150,8 +152,74 @@
     <h2>The SEO play</h2>
     <p>One of the first priorities was visibility. I ran an SEO and content play on the TMS product page targeting "test management software," a competitive, high-intent keyword with established players already ranking. The page reached <strong>#1 in India and #4 in the US</strong>, and has held top-3 a year later.</p>
 
-    <p>Two more wins came out of the same stretch. I ran a 7-day trial experiment, down from the previous 21 days, on the theory that a longer trial doesn't convert better, it just gives people more runway to put off deciding. Cutting it created real urgency: <strong>new paying customers tripled</strong>. And I planned and ran Testsigma's <strong>highest-registered webinar to date (700+ registrations)</strong>, built entirely from scratch with no existing webinar program to lean on.</p>
+    <p>Two more wins came out of the same stretch: a trial-length change that reshaped the top of the funnel, and Testsigma's <strong>highest-registered webinar to date (700+ registrations)</strong>, built entirely from scratch with no existing webinar program to lean on.</p>
+
+    <div class="bow-tile" onclick="openModal('modal-trial')" style="margin: 28px 0;">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <circle cx="36" cy="36" r="28" stroke="#2a2a2e" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <circle cx="36" cy="36" r="15" fill="#8FE3C0" fill-opacity="0.15" stroke="#8FE3C0" stroke-width="2.5"/>
+        <text x="36" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#8FE3C0" font-family="-apple-system, sans-serif">7d</text>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">Cutting the Trial From 21 Days to 7</div>
+        <div class="bow-tile-teaser">Longer trials don't convert better, they just give people more runway to put off deciding. New paying customers tripled.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
   </section>
+
+  <div class="modal-overlay" id="modal-trial" onclick="if(event.target===this)closeModal('modal-trial')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-trial')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">Cutting the Trial From 21 Days to 7</div>
+      <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 26px;">A call made on a read of user behavior, not a formal split test. Worth showing the reasoning and being straight about what the method was and wasn't.</p>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">The setup</span>
+        <h4>21 days by default, not by design</h4>
+        <ul>
+          <li>TMS inherited the standard 21-day trial window used across Testsigma's other products</li>
+          <li>No one had specifically decided that window fit this product's buying cycle, it was just the default</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E88BB0;">
+        <span class="tag">The hypothesis</span>
+        <h4>Runway isn't the same as conviction</h4>
+        <ul>
+          <li>In a self-serve trial, more days doesn't reliably mean more confidence in the product</li>
+          <li>It often just means more room to postpone a decision that could've been made in week one</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #5B7FE8;">
+        <span class="tag">The change</span>
+        <h4>A straight cutover, not a controlled test</h4>
+        <ul>
+          <li>Cut the default trial window from 21 days to 7 for all new TMS trials</li>
+          <li>This was a before/after cutover, not an A/B split. Saying that plainly rather than dressing it up as more rigorous than it was</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #C77DD1;">
+        <span class="tag">The result</span>
+        <h4>New paying customers tripled</h4>
+        <ul>
+          <li>Comparing the period before the change to the period after, paying customer conversions roughly 3x'd</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #F2934A;">
+        <span class="tag">Worth flagging</span>
+        <h4>Correlation, not an isolated variable</h4>
+        <ul>
+          <li>Because it wasn't a controlled split, I can't fully rule out other things moving in the same window</li>
+          <li>What I can say: it's the largest before/after swing I've seen from a single lever on this product, and it's the kind of result that makes the case for actually running it as a proper split next time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <div class="modal-overlay" id="modal-jtbd" onclick="if(event.target===this)closeModal('modal-jtbd')">
     <div class="modal-box">
