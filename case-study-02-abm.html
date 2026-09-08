@@ -180,7 +180,64 @@
 
     <h2>The mature version: pure signal-based ABM</h2>
     <p>With the foundation in place, I co-drove a dedicated ABM motion, a different level of sophistication from the original pilot. Factors pulled in third-party intent data from G2 and Bombora alongside our own site activity, and those combined signals shaped which accounts made the target list in the first place, not a generic TAM pulled from firmographics alone. LinkedIn ads served directly to that list, coordinated with the BDR-owned account list so that by the time a rep reached out, the account had already heard of Testsigma.</p>
+
+    <div class="bow-tile" onclick="openModal('modal-winloss')" style="margin: 28px 0;">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <circle cx="28" cy="36" r="16" fill="#8FE3C0" fill-opacity="0.15" stroke="#8FE3C0" stroke-width="2"/>
+        <circle cx="46" cy="36" r="16" fill="#E06B7A" fill-opacity="0.15" stroke="#E06B7A" stroke-width="2"/>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">Turning Win/Loss Data Into the Ad Messaging</div>
+        <div class="bow-tile-teaser">Signal scoring told us who to target. It didn't tell us what to say. Here's where that came from.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
   </section>
+
+  <div class="modal-overlay" id="modal-winloss" onclick="if(event.target===this)closeModal('modal-winloss')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-winloss')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">Turning Win/Loss Data Into the Ad Messaging</div>
+      <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 26px;">Signal scoring decides who to reach and when. It has nothing to say about what to actually tell them once you have their attention. This is where that came from.</p>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">The gap</span>
+        <h4>Good targeting, but no clear messaging strategy</h4>
+        <ul>
+          <li>Signal scoring told us which accounts were worth reaching and when</li>
+          <li>It said nothing about which value prop would actually land once we had their attention</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E88BB0;">
+        <span class="tag">The method</span>
+        <h4>Every closed deal, region by region</h4>
+        <ul>
+          <li>Pulled all closed-won and closed-lost deals, split by region</li>
+          <li>Reviewed the actual Gong call recordings and Attive engagement data behind each one, not just the CRM outcome field</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #5B7FE8;">
+        <span class="tag">What I was looking for</span>
+        <h4>Where Testsigma's answer actually mattered</h4>
+        <ul>
+          <li>In wins: which specific pain point came up on the call, and which of our answers actually moved the deal forward</li>
+          <li>In losses: where a prospect went cold or picked a competitor despite real engagement, and why</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #C77DD1;">
+        <span class="tag">The output</span>
+        <h4>The pattern became the pitch</h4>
+        <ul>
+          <li>Test maintenance burden came up repeatedly as the deciding factor, in both wins and losses</li>
+          <li>That's the specific value prop behind the region's ad copy, the 40% test-maintenance number in the APAC ad below is a direct output of this exercise, not a stat picked because it sounded good</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
   <section class="screenshot-section">
     <div class="screenshot-frame">
