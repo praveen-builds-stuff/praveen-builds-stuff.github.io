@@ -76,7 +76,7 @@
 
   <section class="tool-section">
     <div class="tool-label">Tool 01</div>
-    <div class="tool-title">Canary: a landing page monitor that runs before I'm awake</div>
+    <div class="tool-title">Canary: a landing page monitor that runs before I login</div>
     <p>Every paid landing page failing silently is money spent driving traffic to a broken page. Canary runs two checks every morning: a lightweight 404 sweep across every URL in about 13 seconds, then a deeper pass for broken CTAs, dead HubSpot form embeds, and broken modals. An email lands in my inbox before I start my day.</p>
     <p>Some days it's all green. Some days it saves me from a bad morning.</p>
     <div class="shot-grid">
@@ -93,7 +93,7 @@
   <section class="tool-section">
     <div class="tool-label">Tool 02</div>
     <div class="tool-title">ROI calculator: built for AEs, approved by the CTO</div>
-    <p>AEs needed a fast, credible way to show prospects the return on switching to Testsigma: not a static spreadsheet, a real interactive tool. I built the front end myself, iterated the underlying logic with engineering, and added PDF export so AEs could drop it straight into a deck.</p>
+    <p>AEs needed a fast, credible way to show prospects the return on switching to Testsigma: not a static spreadsheet, a real interactive tool. I built the front end myself, iterated the underlying logic with a couple of AEs, and added PDF export so AEs could drop it straight into a deck.</p>
     <p>It went through a CTO review before shipping, and it's been in active use in sales decks since.</p>
     <div class="screenshot-frame">
       <img class="lightbox-trigger" onclick="openLightbox('assets/cs4-roi-calc-slack.png')" src="assets/cs4-roi-calc-slack.png" alt="Slack announcement of the ROI calculator launch with team reactions">
@@ -118,13 +118,13 @@
 
   <section class="tool-section">
     <div class="tool-label">Tool 04</div>
-    <div class="tool-title">CRO-audit agent, now a team-wide skill, not just mine</div>
-    <p>I built an agent that generates conversion hypotheses directly from a page screenshot and a heatmap, with no analytics access required. What made it worth sharing was converting it into a Claude skill the entire team could run themselves, not just something that lived in my own workflow.</p>
+    <div class="tool-title">CRO-audit agent, turned into a team-wide skill</div>
+    <p>I built an agent that generates conversion hypotheses directly from a page screenshot and a heatmap, no CRO expertise needed to run it or act on what it finds. What made it worth sharing was converting it into a Claude skill the entire team could run themselves, instead of leaving it as something that only lived in my own workflow.</p>
     <p>The instructions behind it are deliberately strict about one thing: a confident recommendation built on a wrong assumption is worse than no recommendation at all. The skill is required to separate what it can actually observe in the screenshots from what it's inferring, and to ask for missing inputs rather than guess.</p>
     <div class="screenshot-frame">
       <img class="lightbox-trigger" onclick="openLightbox('assets/cs4-cro-audit-skill.png')" src="assets/cs4-cro-audit-skill.png" alt="The cro-audit Claude skill definition, showing its persona, required inputs, and instructions to separate observation from inference">
     </div>
-    <p class="caption">The actual skill definition, not just the pitch for it.</p>
+    <p class="caption">The actual skill definition.</p>
   </section>
 
   <section class="tool-section">
