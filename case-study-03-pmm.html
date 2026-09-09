@@ -148,7 +148,107 @@
       </div>
       <div class="bow-arrow">&rarr;</div>
     </div>
+  </section>
 
+  <section class="prose">
+    <h2>A recurring voice-of-customer engine</h2>
+    <p>Not everything in this stretch was specific to the TMS launch. This is the one exception: a system that turns real prospect conversations into messaging on an ongoing monthly cycle, and it's still running today, regardless of what's launching next.</p>
+
+    <div style="display:flex; gap: 48px; margin: 28px 0 24px; flex-wrap: wrap;">
+      <div>
+        <div class="stat-number" style="font-size: 42px;">3</div>
+        <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">POV pillars, every month</div>
+      </div>
+      <div>
+        <div class="stat-number" style="font-size: 42px;">15</div>
+        <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">verbatim-validated quotes per cycle</div>
+      </div>
+      <div>
+        <div class="stat-number" style="font-size: 42px;">Monthly</div>
+        <div style="font-size: 13px; color: var(--text-muted); margin-top: 2px;">not a one-time research sprint</div>
+      </div>
+    </div>
+
+    <div class="bow-tile" onclick="openModal('modal-voc')" style="margin: 28px 0;">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <path d="M14 18 Q14 12 20 12 L52 12 Q58 12 58 18 L58 38 Q58 44 52 44 L28 44 L18 54 L20 44 Q14 44 14 38 Z" fill="#8FE3C0" fill-opacity="0.12" stroke="#8FE3C0" stroke-width="2"/>
+        <path d="M22 25 L28 31 L34 21 L40 33 L46 19 L52 29" stroke="#8FE3C0" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">The Monthly VOC Messaging Engine</div>
+        <div class="bow-tile-teaser">Runs on its own every month. Turns real prospect calls into messaging built from their own words, not a guess at them.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="modal-voc" onclick="if(event.target===this)closeModal('modal-voc')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-voc')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">The Monthly VOC Messaging Engine</div>
+      <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 26px;">A standing system, not a project with an end date. It runs every month without me having to remember to run it.</p>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">The input</span>
+        <h4>That month's real prospect calls, not a sample</h4>
+        <ul>
+          <li>Pulls the month's prospect intro and discovery calls directly from Gong</li>
+          <li>Filters down to substantive, real conversations, skips short calls and no-shows that would just add noise</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E88BB0;">
+        <span class="tag">The extraction</span>
+        <h4>Pains and triggers, in the prospect's own words</h4>
+        <ul>
+          <li>Surfaces recurring pain points, buying triggers, and must-have outcomes across that month's calls</li>
+          <li>Pulls 15 verbatim prospect quotes per cycle, verbatim-validated so it's never a paraphrase standing in for what someone actually said</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #5B7FE8;">
+        <span class="tag">The synthesis</span>
+        <h4>Raw signal turned into usable messaging</h4>
+        <ul>
+          <li>Synthesizes 3 POV pillars for the month, each with its own problem-to-value ladder</li>
+          <li>Writes 5 hook headlines per pillar, in language pulled directly from the calls, not invented afterward</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #C77DD1;">
+        <span class="tag">The output</span>
+        <h4>A one-pager, not a research deck no one reads</h4>
+        <ul>
+          <li>Delivered as a markdown one-pager, an Excel evidence appendix tracing every claim back to an actual quote, and a Slack-ready summary</li>
+          <li>Comes to me for review first, before anything goes out to the wider team</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-voc-onepager.png')" src="assets/cs3-voc-onepager.png" alt="Voice of Customer messaging sheet showing a POV pillar with problem-to-value framing and hooks">
+    </div>
+    <p class="caption">One pillar from an actual month's output: problem, value, and the hooks pulled straight from it.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-voc-slack.png')" src="assets/cs3-voc-slack.png" alt="Slack message showing the automated monthly VOC messaging summary, sent using Claude">
+    </div>
+    <p class="caption">The monthly summary, delivered to Slack automatically. (Prospect names and companies redacted.)</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-voc-claude-run.png')" src="assets/cs3-voc-claude-run.png" alt="Claude scheduled task interface showing the VOC engine's run history, connectors, and skills used">
+    </div>
+    <p class="caption">The scheduled run itself: Gong and Salesforce connected, output files generated automatically. (Customer account names redacted.)</p>
+  </section>
+
+  <section class="prose">
     <h2>The SEO play</h2>
     <p>One of the first priorities was visibility. I ran an SEO and content play on the TMS product page targeting "test management software," a competitive, high-intent keyword with established players already ranking. The page reached <strong>#1 in India and #4 in the US</strong>, and has held top-3 a year later.</p>
 
