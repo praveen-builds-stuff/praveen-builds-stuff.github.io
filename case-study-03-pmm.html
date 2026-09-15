@@ -249,6 +249,74 @@
   </section>
 
   <section class="prose">
+    <h2>A live battlecard generator for competitive deals</h2>
+    <p>Sales enablement for competitive deals usually means a static PDF that goes stale the week it's published. I built a tool that generates a full battlecard on demand, pulling live G2 intelligence for whichever competitor a rep is actually up against that week, instead of whatever the last update cycle happened to cover.</p>
+
+    <div class="bow-tile" onclick="openModal('modal-battlecard')" style="margin: 28px 0;">
+      <svg class="bow-tile-icon" viewBox="0 0 72 72" fill="none">
+        <path d="M20 52 L48 24" stroke="#F2934A" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="50" cy="22" r="7" fill="#F2934A" fill-opacity="0.15" stroke="#F2934A" stroke-width="2.5"/>
+        <circle cx="18" cy="54" r="5" fill="#F2934A" fill-opacity="0.25" stroke="#F2934A" stroke-width="2"/>
+      </svg>
+      <div class="bow-tile-body">
+        <div class="bow-tile-title">The Battlecard Generator</div>
+        <div class="bow-tile-teaser">Pick any competitor. Get a positioning line, real proof points, and the honest gaps, generated live, not written once and left to rot.</div>
+      </div>
+      <div class="bow-arrow">&rarr;</div>
+    </div>
+  </section>
+
+  <div class="modal-overlay" id="modal-battlecard" onclick="if(event.target===this)closeModal('modal-battlecard')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('modal-battlecard')">&times;</button>
+      <div class="modal-eyebrow">Body of work</div>
+      <div class="modal-title">The Battlecard Generator</div>
+      <p style="font-size: 15px; color: var(--text-secondary); margin-bottom: 26px;">Built so a rep gets a real answer to "who are we up against" in seconds, not whatever static doc someone last updated.</p>
+
+      <div class="modal-block" style="--modal-color: #F2934A;">
+        <span class="tag">The input</span>
+        <h4>Any competitor, sorted by category</h4>
+        <ul>
+          <li>17 competitors across open source, cloud platform, enterprise, and AI-native testing tools, so a rep picks the actual competitor in the deal, not a generic one</li>
+          <li>Pulls live G2 intelligence rather than a pre-written comparison someone typed up once</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #8FE3C0;">
+        <span class="tag">The output</span>
+        <h4>A positioning line, then the actual proof</h4>
+        <ul>
+          <li>Leads with a single sharp positioning line, then backs it with real customer wins, real numbers, not generic feature claims</li>
+          <li>Three tabs per competitor: the battlecard itself, a head-to-head feature view, and the underlying G2 intel it was generated from</li>
+        </ul>
+      </div>
+
+      <div class="modal-block" style="--modal-color: #E06B7A;">
+        <span class="tag">The honesty</span>
+        <h4>An "Honest Gaps" section, on purpose</h4>
+        <ul>
+          <li>Every battlecard names where the competitor is genuinely stronger, not just where we win</li>
+          <li>Each gap comes with an actual counter a rep can use, not an instruction to change the subject</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-battlecard-grid.png')" src="assets/cs3-battlecard-grid.png" alt="Battlecard generator competitor selection grid, organized by category">
+    </div>
+    <p class="caption">Pick a competitor by category, sales gets a battlecard built for the deal in front of them.</p>
+  </section>
+
+  <section class="screenshot-section">
+    <div class="screenshot-frame">
+      <img class="lightbox-trigger" onclick="openLightbox('assets/cs3-battlecard-tool.png')" src="assets/cs3-battlecard-tool.png" alt="Generated battlecard for Testsigma vs BrowserStack, showing real customer wins and an honest gaps section">
+    </div>
+    <p class="caption">A generated battlecard: real wins with real numbers, and the gaps stated plainly rather than hidden. (Customer names redacted.)</p>
+  </section>
+
+  <section class="prose">
     <h2>The SEO play</h2>
     <p>One of the first priorities was visibility. I ran an SEO and content play on the TMS product page targeting "test management software," a competitive, high-intent keyword with established players already ranking. The page reached <strong>#1 in India and #4 in the US</strong>, and has held top-3 a year later.</p>
 
